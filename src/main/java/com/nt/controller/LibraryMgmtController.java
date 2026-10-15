@@ -3,6 +3,8 @@ package com.nt.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nt.entity.LibraryEntity;
@@ -43,6 +44,11 @@ public class LibraryMgmtController {
 		return new ResponseEntity<List>(all,HttpStatus.OK);
 	}
 	
+	@GetMapping("/findall")
+	public Page<LibraryEntity> findAll(Pageable pageable) {
+	    return service.findAllRecords(pageable);
+	}
+	
 	@PutMapping("/update")
 	public ResponseEntity<String> updateRecords(@RequestBody LibraryEntity entity){
 		String updated = service.UpdatedRecordByid(entity);
@@ -54,5 +60,7 @@ public class LibraryMgmtController {
 		String remove = service.removeById(id);
 		return new ResponseEntity<String>(remove,HttpStatus.OK);
 	}
+	
+	
 	
 }

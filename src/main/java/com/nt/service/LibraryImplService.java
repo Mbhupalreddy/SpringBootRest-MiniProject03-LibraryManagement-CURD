@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.nt.entity.LibraryEntity;
@@ -57,6 +59,12 @@ public class LibraryImplService  implements ILibraryService{
 		}else {
 		return "Book id is not found";
 		}
+	}
+
+	@Override
+	public Page<LibraryEntity> findAllRecords(Pageable pageable) {
+		
+		return repo.findAll(pageable);
 	}
 	
 	
